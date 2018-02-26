@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +22,8 @@ namespace Shopping_List
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,11 +41,12 @@ namespace Shopping_List
 
             app.UseStaticFiles();
 
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Shopping}/{action=Index}/{id?}");
             });
         }
     }
